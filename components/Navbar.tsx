@@ -24,7 +24,7 @@ const Navbar = () => {
 
   return (
     <>
-        <div className="flex px-4 py-4 justify-between border-b  z-50 sticky top-0 backdrop-blur-md ">
+        <div className="flex px-4 py-4 justify-between  z-50 sticky top-0 backdrop-blur-md ">
             <Link href='/'><div className='items-center justify-center'>
                 <h1 className="text-xl md:text-2xl flex gap-2 items-center font-poppins font-semibold"><FaCode className="text-orange-500" />PrepVault</h1>
             </div></Link>

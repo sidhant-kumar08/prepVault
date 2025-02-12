@@ -8,21 +8,12 @@ export default function Home() {
   return (
     <>
       <div
-        className="
-    absolute inset-0 -z-10 h-full w-full 
-    bg-white dark:bg-[#212121] 
-    bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)]
-    dark:bg-[linear-gradient(to_right,#2c2c2c_1px,transparent_1px),linear-gradient(to_bottom,#2c2c2c_1px,transparent_1px)]
-    bg-[size:4rem_6rem]
-  "
+        className="absolute bg-gradient-to-b  via-75% dark:bg-none from-white via-orange-200 to-orange-600 inset-0 -z-10 mt-6 h-full"
         style={{
           maskImage: "linear-gradient(to bottom, black, transparent)",
           WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
         }}
       ></div>
-
-
-
 
       <FirstSection />
       <SecondSection />

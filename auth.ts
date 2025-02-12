@@ -1,12 +1,8 @@
-import NextAuth, { CredentialsSignin } from "next-auth"
-import Github from 'next-auth/providers/github'
-import CredentialsProvider from 'next-auth/providers/credentials'
-import connectDB from "./app/utils/dbConnect"
-import userModel from "./models/user.model"
-import bcrypt from 'bcryptjs'
-import axios from "axios"
-import { redirect } from "next/navigation"
- 
+import NextAuth from "next-auth";
+import Github from "next-auth/providers/github";
+import CredentialsProvider from "next-auth/providers/credentials";
+import axios from "axios";
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Github({
@@ -16,40 +12,44 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     CredentialsProvider({
       name: "PrepVault",
       credentials: {
-        email: { label: "Email", type: "email", placeholder: "yourname@example.com" },
-        password: { label: "Password", type: "password", placeholder: "******" },
+        email: {
+          label: "Email",
+          type: "email",
+          placeholder: "yourname@example.com",
+        },
+        password: {
+          label: "Password",
+          type: "password",
+          placeholder: "******",
+        },
       },
       async authorize(credentials) {
         const { email, password } = credentials || {};
-
-        
         if (!email || !password) {
           throw new Error("All fields are required");
         }
 
         try {
-          await connectDB();
-          const user = await userModel.findOne({ email });
-          if (!user) {
-            const response = await axios.post('http://localhost:3000/api/auth/signup', { email, password });
-            if(response.data?.success){
-              return { id: response.data.user._id, email: response.data.user.email };
-              redirect('/home')
-            }
-          }
+          const { data } = await axios.post("http://localhost:3000/api/auth/signup", {
+            email,
+            password,
+          });
 
-          const isValid = await bcrypt.compare(password, user.password?.toString() || "");
-          if (!isValid) {
+          if (!data?.success) {
             throw new Error("Invalid credentials");
           }
 
-          return { id: user._id, email: user.email };
+          return { id: data.user._id, email: data.user.email };
         } catch (error) {
-          console.error("Authentication error:", error);
-          throw new Error("Error during authentication");
+          throw new Error(
+            error?.response?.data?.message || "An error occurred"
+          );
         }
       },
     }),
   ],
-  secret: process.env.AUTH_SECRET
-})
+  pages: {
+    error: "/signin",
+  },
+  secret: process.env.AUTH_SECRET,
+});

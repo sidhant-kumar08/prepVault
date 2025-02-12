@@ -29,7 +29,8 @@ export async function POST(req: NextRequest){
 
         return NextResponse.json({
             message: "Created Successfully",
-            success: true
+            success: true,
+            newExp
         },{status: 201})
 
 
@@ -41,7 +42,7 @@ export async function POST(req: NextRequest){
 }
 
 
-export async function GET (req: NextRequest){
+export async function GET (){
 
     try {
         await connectDB();

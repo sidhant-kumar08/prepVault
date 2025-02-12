@@ -10,7 +10,8 @@ const config: Config = {
   theme: {
   	extend: {
   		fontFamily: {
-  			poppins: ['Poppins', 'sans-serif']
+  			poppins: ['Poppins', 'sans-serif'],
+			bricolage: ['Bricolage Grotesque', 'sans-serif'],
   		},
   		colors: {
   			background: 'hsl(var(--background))',

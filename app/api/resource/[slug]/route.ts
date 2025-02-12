@@ -1,5 +1,4 @@
 import connectDB from "@/app/utils/dbConnect";
-import { Params } from "next/dist/server/request/params";
 import { NextRequest, NextResponse } from "next/server";
 import Resource from "@/models/resources.schema";
 

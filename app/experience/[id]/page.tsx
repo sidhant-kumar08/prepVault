@@ -6,9 +6,11 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { BiLeftArrowAlt } from "react-icons/bi";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
+import { BiUpvote } from "react-icons/bi";
+import { BiDownvote } from "react-icons/bi";
 
-function experience() {
+function Experience() {
   const { id } = useParams();
   const [singleExp, setSingleExp] = useState<dataType>();
 
@@ -17,13 +19,23 @@ function experience() {
       async function fetchData() {
         const response = await axios.get(`/api/experience/${id}`);
         setSingleExp(response.data);
-        console.log(response.data);
       }
       fetchData();
     } catch (error) {
       console.log(error);
     }
   }, []);
+
+  async function handleVoteClick(args: string) {
+    try {
+      const response = await axios.post(`/api/experience/${id}`, {
+        voteType: args,
+      });
+      setSingleExp(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <>
@@ -48,26 +60,36 @@ function experience() {
                     {singleExp.company.toUpperCase()}
                   </button>
                   <button
-                    className={`px-4 border rounded-full ${singleExp.status.toLowerCase() === "selected"
-                      ? "border-green-500 text-green-500"
-                      : singleExp.status.toLowerCase() === "rejected"
+                    className={`px-4 border rounded-full ${
+                      singleExp.status.toLowerCase() === "selected"
+                        ? "border-green-500 text-green-500"
+                        : singleExp.status.toLowerCase() === "rejected"
                         ? "border-red-500 text-red-500"
                         : "border-gray-500 text-gray-500"
-                      }`}
+                    }`}
                   >
                     {singleExp.status.toUpperCase()}
                   </button>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleVoteClick("upVote")}
+                      className="flex gap-2 justify-center items-center"
+                    >
+                      <BiUpvote /> {singleExp.upVote}
+                    </button>
+                    <button
+                      onClick={() => handleVoteClick("downVote")}
+                      className="flex gap-2 justify-center items-center"
+                    >
+                      <BiDownvote /> {singleExp.downVote}
+                    </button>
+                  </div>
                 </div>
-
-
               </div>
-
             </div>
             <hr className="mt-4" />
 
-            <div className="mt-4 prose">
-              {parse(singleExp.experience)}
-            </div>
+            <div className="mt-4 prose">{parse(singleExp.experience)}</div>
 
             <div className="border-t border-black mt-4 py-4 text-center">
               <p>Posted on: {formatDate(singleExp.createdAt)}</p>
@@ -77,10 +99,8 @@ function experience() {
           <p>Loading...</p>
         )}
       </div>
-
-
     </>
   );
 }
 
-export default experience;
+export default Experience;

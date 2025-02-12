@@ -5,7 +5,6 @@ import axios from "axios";
 import { FaUser } from "react-icons/fa";
 import Link from "next/link";
 import parse from 'html-react-parser';
-import { BiRightArrow } from "react-icons/bi";
 import HomeShimmer from "@/components/HomeShimmer";
 
 export interface dataType {
@@ -16,12 +15,14 @@ export interface dataType {
   user: string;
   status: "Selected" | "Rejected" | "Pending";
   createdAt: string;
+  upVote?: number;
+  downVote?: number;
 }
 
 export const formatDate = (isoDate: string): string => {
   const date = new Date(isoDate);
-  const day = String(date.getDate()).padStart(2, "0"); // Ensure 2 digits
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+  const day = String(date.getDate()).padStart(2, "0"); 
+  const month = String(date.getMonth() + 1).padStart(2, "0"); 
   const year = date.getFullYear();
   return `${day}/${month}/${year}`;
 };
@@ -55,8 +56,22 @@ const Page = () => {
 
   return (
     <div>
+
+<div
+        className="
+    absolute inset-0 -z-10 h-full w-full 
+    bg-white dark:bg-[#212121] 
+    bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)]
+    dark:bg-[linear-gradient(to_right,#2c2c2c_1px,transparent_1px),linear-gradient(to_bottom,#2c2c2c_1px,transparent_1px)]
+    bg-[size:4rem_6rem]
+  "
+        style={{
+          maskImage: "linear-gradient(to bottom, black, transparent)",
+          WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
+        }}
+      ></div>
       {data ? (
-        <div className="max-w-6xl mx-auto px-2 md:px-0 mt-6 flex flex-col gap-4">
+        <div className="max-w-6xl mx-auto px-2 md:px-0 mt-6 flex flex-col gap-4 bg-white dark:bg-neutral-800">
           {data.map((item: dataType, index) => (
             <Link href={`/experience/${item._id}`} key={index}>
               <div className="border-neutral-400 border rounded-xl shadow-sm flex-col flex gap-2 px-4 py-4">

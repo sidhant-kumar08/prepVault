@@ -23,7 +23,7 @@ function page() {
                                                            {/* card */}
                     {cardData.map((data, index) => {
                       return (
-                        <Link href={`/resource/${data.route}`}><ResourceCard key={index} title={data.title} /></Link>
+                        <Link key={index} href={`/resource/${data.route}`}><ResourceCard key={index} title={data.title} /></Link>
                       )
                     })}
               </div>

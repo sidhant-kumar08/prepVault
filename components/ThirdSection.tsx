@@ -2,6 +2,7 @@ import React from 'react'
 import { GrResources } from "react-icons/gr";
 import { IoPersonOutline } from "react-icons/io5";
 import { MdOutlineSentimentSatisfied } from "react-icons/md";
+import PricingCard from './PricingCard';
 
 function ThirdSection() {
 
@@ -28,15 +29,15 @@ const featuresData = [
         <div className='flex flex-col gap-4 mt-4 md:mt-10 md:gap-8'>
 
                 <div className='flex justify-center mt-4'>
-                    <h1 className='text-xl md:text-2xl font-semibold font-poppins underline'>Features</h1>
+                    <h1 className='text-xl md:text-2xl font-semibold font-bricolage underline'>Features</h1>
                 </div>
 
 
                 <div>
-                    <div className='flex flex-col md:grid md:grid-cols-3 mt-6 px-4 md:px-32 gap-6'>
+                    <div className='flex flex-col md:grid md:grid-cols-3 mt-6 px-4 md:px-32 gap-6 '>
                     {
                                 featuresData.map((feature, index) => (
-                                    <div key={index} className='flex flex-col hover:shadow-lg dark:shadow-neutral-900 shadow-md transition ease-linear duration-100 rounded-2xl dark:bg-neutral-700 bg-[#F9FAFB] py-4 justify-center text-center px-2 items-center'>
+                                    <div key={index} className='flex flex-col hover:border hover:border-orange-300 hover:shadow-lg dark:shadow-neutral-900 shadow-md transition ease-linear duration-100 rounded-2xl dark:bg-neutral-700 bg-[#F9FAFB] py-4 justify-center text-center px-2 items-center'>
                                         <div className='flex justify-center'>
                                             <div className='bg-gray-100 text-orange-500 dark:bg-neutral-500 p-4 rounded-full'>
                                                 {feature.image}
@@ -53,6 +54,8 @@ const featuresData = [
                 </div>
 
         </div>
+
+        <PricingCard />
     </>
   )
 }

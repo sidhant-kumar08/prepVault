@@ -12,7 +12,7 @@ import { VscDebugBreakpointLog } from "react-icons/vsc";
 function Page({ params }: { params: Promise<{ route: string }> }) {
   const { route } = use(params);
 
-  const [resource, setResource] = useState<any>(null);
+  const [resource, setResource] = useState(null);
   const [isOpen, setIsOpen] = useState<{ [key: number]: boolean }>({});
 
   useEffect(() => {
@@ -48,7 +48,7 @@ function Page({ params }: { params: Promise<{ route: string }> }) {
       <h1 className="text-4xl font-bold font-poppins text-center mb-6 bg-gradient-to-b from-orange-500 to-red-500 text-transparent bg-clip-text">{resource.title.toUpperCase()}</h1>
 
       <div className="space-y-4">
-        {resource.modules.map((module: any, index: number) => (
+        {resource.modules.map((module, index: number) => (
           <motion.div
             key={index}
             initial={{ opacity: 0, y: 10 }}
@@ -70,7 +70,7 @@ function Page({ params }: { params: Promise<{ route: string }> }) {
                 transition={{ duration: 0.3 }}
                 className="mt-3 space-y-2"
               >
-                {module.topics.map((item: any, topicIndex: number) => (
+                {module.topics.map((item, topicIndex: number) => (
                   <li key={topicIndex} className="pl-6 flex items-center gap-4 list-none">
                     <VscDebugBreakpointLog />
                     <Link

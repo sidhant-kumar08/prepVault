@@ -7,6 +7,8 @@ export interface ExperienceType extends Document {
     experience: string;
     user: string;
     status: "Selected" | "Rejected" | "Pending";
+    upVote?: Number;
+    downVote?: Number;
 }
 
 
@@ -31,7 +33,15 @@ const experienceSchema = new Schema({
         type: String,
         enum: ["Selected", "Rejected", "Pending"],
         default: "Pending"
-    }
+    },
+    upVote : {
+        type : Number,
+        default : 0,
+    },
+    downVote : {
+        type : Number,
+        default : 0
+    },
 },{timestamps: true})
 
 

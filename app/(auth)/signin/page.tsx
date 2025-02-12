@@ -1,89 +1,87 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { BsGithub } from "react-icons/bs";
-import { signIn } from 'next-auth/react';
-import { redirect } from 'next/navigation';
+import { signIn } from "next-auth/react";
+import { z } from "zod";
+import { useRouter } from "next/navigation";
+
+const loginSchema = z.object({
+  email: z.string().email("Invalid email format"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
 
 function Page() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
+  const router = useRouter();
 
+ 
 
+  async function handleCredentialsLogin(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-
-    async function handleCredentialsLogin(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        try {
-            const result = await signIn('credentials', { email, password });
-
-            if (result?.ok) {
-                redirect('/');
-            }
-        } catch (error) {
-            console.error('Login failed', error);
-        }
+    const result = loginSchema.safeParse({ email, password });
+    if (!result.success) {
+      setError(result.error.errors[0].message);
+      return;
     }
 
-    async function handleGithubLogin() {
-        await signIn('github');
+    try {
+      const response = await signIn("credentials", { email, password, redirect: false });
+
+      if (response?.error) {
+        console.log(response?.error)
+        setError("Invalid credentials try again");
+      } else {
+        router.push('/')
+      }
+    } catch (err) {
+      console.log(err)
+      setError("Something went wrong");
     }
+  }
 
-    return (
-        <>
-            <form className='flex justify-center items-center mt-14 h-96' onSubmit={handleCredentialsLogin}>
-                <div className='border-neutral-500 border rounded-2xl justify-center flex items-center px-10 md:px-16 py-8 flex-col gap-4 max-w-96'>
-                    <div className='mb-4 text-2xl md:text-2xl font-poppins font-semibold text-nowrap'>
-                        <h1>Login to PrepVault</h1>
-                    </div>
+  return (
+    <form className="flex justify-center items-center mt-14 h-96" onSubmit={handleCredentialsLogin}>
+      <div className="border-neutral-500 border rounded-2xl justify-center flex items-center px-10 md:px-16 py-8 flex-col gap-4 max-w-96">
+        <h1 className="text-2xl font-semibold">Login to PrepVault</h1>
 
-                    <div className='flex-col flex gap-2'>
-                        <input
-                            className='border rounded-lg dark:bg-black dark:text-white py-1 px-4'
-                            name='email'
-                            type="email"
-                            placeholder='johndoe@example.com'
-                            onChange={(e) => setEmail(e.target.value)}
-                            value={email}
-                        />
-                        <input
-                            className='border rounded-lg dark:bg-black dark:text-white py-1 px-4'
-                            name='password'
-                            type="password"
-                            placeholder='*****'
-                            onChange={(e) => setPassword(e.target.value)}
-                            value={password}
-                        />
-                    </div>
+        {error && <p className="text-red-500 md:text-nowrap">{error}</p>}
 
-                    <div className='flex flex-col w-full justify-center items-center'>
-                        <div>
-                            <button type="submit" className='bg-blue-500 text-white px-20 py-2 rounded-lg'>
-                                Login
-                            </button>
-                        </div>
+        <div className="flex flex-col gap-2">
+          <input
+            className="border rounded-lg py-1 px-4"
+            type="email"
+            placeholder="johndoe@example.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            className="border rounded-lg py-1 px-4"
+            type="password"
+            placeholder="*****"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
 
-                        <div className='flex gap-2 justify-center items-center w-full my-4'>
-                            <div className='flex-grow h-px bg-neutral-300 dark:bg-white'></div>
-                            <span className='px-2'>or</span>
-                            <div className='flex-grow h-px bg-neutral-300 dark:bg-white'></div>
-                        </div>
+        <button type="submit" className="bg-blue-500 text-white px-20 py-2 rounded-lg">
+          Login
+        </button>
 
-                        <div>
-                            <button
-                                type="button"
-                                onClick={handleGithubLogin}
-                                className='bg-black dark:bg-white dark:text-black flex gap-2 items-center text-white rounded-lg px-6 py-2'
-                            >
-                                Login with Github <BsGithub />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </>
-    );
+        <button
+          type="button"
+          onClick={() => signIn("github")}
+          className="bg-black text-white flex gap-2 items-center rounded-lg px-6 py-2"
+        >
+          Login with Github <BsGithub />
+        </button>
+      </div>
+    </form>
+  );
 }
 
 export default Page;

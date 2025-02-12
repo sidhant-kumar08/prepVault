@@ -33,7 +33,7 @@ function FourthSection() {
     return (
         <div className='mt-10 md:mt-20'>
             <div className='flex justify-center mt-4'>
-                <h1 className='text-xl md:text-2xl font-semibold font-poppins underline'>
+                <h1 className='text-xl md:text-2xl font-semibold font-bricolage underline'>
                     Frequently Asked Questions
                 </h1>
             </div>

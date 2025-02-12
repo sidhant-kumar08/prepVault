@@ -4,6 +4,7 @@ import { FadeText } from "@/components/ui/fade-text";
 import { RainbowButton } from "@/components/ui/rainbow-button";
 import WordFadeIn from "@/components/ui/word-fade-in";
 import { BiChevronRight } from "react-icons/bi";
+import Link from 'next/link';
 
 
 function FirstSection() {
@@ -68,7 +69,7 @@ function FirstSection() {
         </div>
 
         <div className="flex justify-center items-center">
-          <RainbowButton children={`Ace your Interview`} />
+          <Link href={"/home"}><RainbowButton children={`Ace your Interview`} /></Link>
         </div>
       </div>
 
