@@ -1,10 +1,9 @@
-import React from 'react'
 import AnimatedGradientText from "@/components/ui/animated-gradient-text";
 import { FadeText } from "@/components/ui/fade-text";
 import { RainbowButton } from "@/components/ui/rainbow-button";
 import WordFadeIn from "@/components/ui/word-fade-in";
-import { BiChevronRight } from "react-icons/bi";
 import Link from 'next/link';
+import { BiChevronRight } from "react-icons/bi";
 
 
 function FirstSection() {
