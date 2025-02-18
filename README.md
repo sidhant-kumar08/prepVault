@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PrepVault
 
-## Getting Started
+**PrepVault** is an interview experience-sharing platform where users can share their interview experiences, upvote/downvote posts, and access valuable learning resources like YouTube video links. It helps job seekers prepare efficiently by learning from real interview experiences.
 
-First, run the development server:
+## Features
+- Share and explore interview experiences.
+- Upvote/downvote interview posts.
+- Explore learning resources for different skills like Devops, Fullstack etc.
+- Ai integration for creating high quality interview experience post.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Technologies Used
+- **Frontend:** Next.js, TypeScript, React
+- **Backend:** Next.js (API Routes)
+- **Database:** MongoDB with Mongoose
+- **Authentication:** Auth.js (NextAuth)
+- **Deployment:** Vercel
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Screenshots
+![Screenshot 2025-02-12 140554](https://github.com/user-attachments/assets/e66001d3-2c4a-43d0-821d-8640fcae2ba8)
+![Screenshot 2025-02-12 140822](https://github.com/user-attachments/assets/557f241a-d3ef-4801-85ed-3695301bb089)
+![Screenshot 2025-02-12 140753](https://github.com/user-attachments/assets/90116ece-0897-4699-b91f-ea3a33bab3cd)
+![Screenshot 2025-02-12 140715](https://github.com/user-attachments/assets/5551af7f-17f1-4680-aa6d-4ec88323b73e)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Installation
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/sidhant-kumar08/prepVault.git
+    ```
+2. Navigate to the project folder:
+    ```bash
+    cd prepvault
+    ```
+3. Install dependencies:
+    ```bash
+    npm install
+    ```
+4. Set up environment variables for database connection, authentication, and gemini.
+5. Run the app:
+    ```bash
+    npm run dev
+    ```
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## Running the project using Docker
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone the repository
+     ```bash
+    git clone https://github.com/sidhant-kumar08/prepVault.git
+    ```
+2. Navigate to the project folder:
+    ```bash
+    cd prepvault
+    ```
+    
+3. Build the Docker Image
+   ```bash
+   docker build -t prepvault
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Run the Container
+   ```bash
+   docker run -p 3000:3000 prepvault
+   ```
+    
 
-## Deploy on Vercel
+## Contributing
+Contributions are welcome! Feel free to open an issue or submit a pull request.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+This project is licensed under the MIT License.

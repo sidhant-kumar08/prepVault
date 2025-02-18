@@ -9,6 +9,7 @@ export interface ExperienceType extends Document {
     status: "Selected" | "Rejected" | "Pending";
     upVote?: Number;
     downVote?: Number;
+    comments: Array<{user: String, text: String}>
 }
 
 
@@ -42,6 +43,18 @@ const experienceSchema = new Schema({
         type : Number,
         default : 0
     },
+    comments: [
+        {
+            user: {
+                type: String,
+                required: true
+            },
+            text: {
+                type: String,
+                required: true
+            }
+        }
+    ]
 },{timestamps: true})
 
 

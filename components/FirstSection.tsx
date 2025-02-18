@@ -1,9 +1,12 @@
+'use client'
+
 import AnimatedGradientText from "@/components/ui/animated-gradient-text";
 import { FadeText } from "@/components/ui/fade-text";
 import { RainbowButton } from "@/components/ui/rainbow-button";
 import WordFadeIn from "@/components/ui/word-fade-in";
 import Link from 'next/link';
 import { BiChevronRight } from "react-icons/bi";
+import {motion} from 'framer-motion'
 
 
 function FirstSection() {
@@ -14,7 +17,24 @@ function FirstSection() {
 
       <div className="flex flex-col gap-6 py-6 md:py-0 mb-10">
         <div className="flex justify-center ">
-          <div className="z-10 flex sm:mt-6 md:mt-4 items-center justify-center">
+          <motion.div
+          initial={{ 
+            opacity: 0,
+            y: 20,
+            filter: "blur(10px)"
+          }}
+          whileInView={{ 
+            opacity: 1,
+            y: 0,
+            filter: "blur(0px)"
+          }}
+          viewport={{ once: true }} 
+          transition={{ 
+            duration: 0.5,
+            delay:  0.1,
+            ease: "easeOut"
+          }}
+          className="z-10 flex sm:mt-6 md:mt-4 items-center justify-center">
             <AnimatedGradientText className="shadow-md">
               🎉 <hr className="mx-2 h-4 w-px shrink-0 bg-border" />{" "}
               <span className="inline animate-gradient bg-gradient-to-r from-primary via-accent to-primary bg-[length:var(--bg-size)_100%] bg-clip-text text-transparent">
@@ -22,11 +42,28 @@ function FirstSection() {
               </span>
               <BiChevronRight className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5 text-foreground" />
             </AnimatedGradientText>
-          </div>
+          </motion.div>
         </div>
 
 
-        <div className="w-full md:max-w-5xl px-4 md:mx-auto flex flex-col items-center relative">
+        <motion.div
+        initial={{ 
+          opacity: 0,
+          y: 20,
+          filter: "blur(10px)"
+        }}
+        whileInView={{ 
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)"
+        }}
+        viewport={{ once: true }} 
+        transition={{ 
+          duration: 0.5,
+          delay: 0.1,
+          ease: "easeOut"
+        }}
+        className="w-full md:max-w-5xl px-4 md:mx-auto flex flex-col items-center relative">
           <WordFadeIn words="Crack Interviews with Insights & Resources 🎉" />
           <div className="absolute top-full -z-10">
             <svg
@@ -44,7 +81,7 @@ function FirstSection() {
             </svg>
           </div>
 
-        </div>
+        </motion.div>
 
 
 
@@ -67,9 +104,26 @@ function FirstSection() {
           />
         </div>
 
-        <div className="flex justify-center items-center">
+        <motion.div 
+        initial={{ 
+          opacity: 0,
+          y: 20,
+          filter: "blur(10px)"
+        }}
+        whileInView={{ 
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)"
+        }}
+        viewport={{ once: true }}
+        transition={{ 
+          duration: 0.5,
+          delay:  0.1,
+          ease: "easeOut"
+        }}
+        className="flex justify-center items-center">
           <Link href={"/home"}><RainbowButton children={`Ace your Interview`} /></Link>
-        </div>
+        </motion.div>
       </div>
 
 

@@ -5,6 +5,7 @@ export interface UserType extends Document {
   email: string;
   password: string;
   githubId: string;
+  username: string;
 }
 
 const userSchema = new Schema<UserType>(

@@ -1,13 +1,33 @@
+"use client"
+
 import { FaCode } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import Link from "next/link";
+import {motion} from 'framer-motion'
 
 function Footer() {
   return (
     <>
-      <div className="mt-10 flex flex-col gap-6 border-t py-5 select-none">
+      <motion.div 
+      initial={{ 
+        opacity: 0,
+        y: 20,
+        filter: "blur(10px)"
+      }}
+      whileInView={{ 
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)"
+      }}
+      viewport={{ once: true }} 
+      transition={{ 
+        duration: 0.5,
+        delay:  0.1,
+        ease: "easeOut"
+      }}
+      className="mt-10 flex flex-col gap-6 border-t py-5 select-none">
         <div className="justify-center text-center flex">
           <h1 className="text-xl md:text-2xl flex gap-2 items-center font-poppins font-semibold">
             <FaCode className="text-orange-500" />
@@ -44,7 +64,7 @@ function Footer() {
         <div className="text-center font-poppins font-semibold">
           Made with ❤️ by Sidhant
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

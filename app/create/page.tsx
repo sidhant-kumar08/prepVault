@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import {motion} from "framer-motion"
 
 export default function Home() {
   const data = useSession();
@@ -71,7 +72,24 @@ export default function Home() {
           WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
         }}
       ></div>
-      <div className="flex justify-center items-center">
+      <motion.div 
+      initial={{ 
+        opacity: 0,
+        y: 20,
+        filter: "blur(10px)"
+      }}
+      whileInView={{ 
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)"
+      }}
+      viewport={{ once: true }}
+      transition={{ 
+        duration: 0.5,
+        delay:  0.1,
+        ease: "easeOut"
+      }}
+      className="flex justify-center items-center">
         <div className="px-2 py-10 md:py-10 md:px-10 md:border bg-white dark:bg-neutral-800 md:rounded-xl md:mt-10 dark:border-white">
           <h1 className="text-center text-2xl  font-semibold font-bricolage">
             Share Your Experience
@@ -120,7 +138,7 @@ export default function Home() {
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 }

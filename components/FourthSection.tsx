@@ -40,7 +40,24 @@ function FourthSection() {
 
             <div className='flex flex-col md:grid md:grid-cols-1 mt-6 px-4 md:px-32 gap-6 md:mt-10'>
                 {faqData.map((faq, index) => (
-                    <div key={index} onClick={() => toggleFAQ(index)} className='cursor-pointer'>
+                    <motion.div
+                    initial={{ 
+                        opacity: 0,
+                        y: 20,
+                        filter: "blur(10px)"
+                      }}
+                      whileInView={{ 
+                        opacity: 1,
+                        y: 0,
+                        filter: "blur(0px)"
+                      }}
+                      viewport={{ once: true }} 
+                      transition={{ 
+                        duration: 0.5,
+                        delay: index * 0.1,
+                        ease: "easeOut"
+                      }}
+                    key={index} onClick={() => toggleFAQ(index)} className='cursor-pointer'>
                         <div className='bg-[#F9FAFB] dark:bg-neutral-700 rounded-2xl py-4 px-8 transition-all duration-300 ease-in-out'>
                             <h1 className='flex justify-between items-center font-semibold font-poppins'>
                                 {faq.question}
@@ -56,7 +73,7 @@ function FourthSection() {
                                 <p className='mt-3'>{faq.answer}</p>
                             </motion.div>
                         </div>
-                    </div>
+                    </motion.div>
                 ))}
             </div>
         </div>

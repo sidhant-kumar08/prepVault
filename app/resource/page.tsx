@@ -1,6 +1,9 @@
+"use client"
+
 import ResourceCard from '@/components/ResourceCard'
 import Link from 'next/link'
 import React from 'react'
+import {motion} from 'framer-motion'
 
 function page() {
 
@@ -8,7 +11,24 @@ function page() {
 
   return (
     <>
-      <div>
+      <motion.div
+      initial={{ 
+        opacity: 0,
+        y: 20,
+        filter: "blur(10px)"
+      }}
+      whileInView={{ 
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)"
+      }}
+      viewport={{ once: true }} 
+      transition={{ 
+        duration: 0.5,
+        delay:  0.1,
+        ease: "easeOut"
+      }}
+      >
         <div className='flex flex-col justify-center items-center py-8 px-4 md:py-14 text-center'>
           <h1 className="text-2xl md:text-4xl font-poppins font-semibold bg-gradient-to-t from-orange-300 to-red-500 bg-clip-text text-transparent">
             All Your Resources in One Place
@@ -31,7 +51,7 @@ function page() {
 
 
 
-      </div>
+      </motion.div>
     </>
   )
 }

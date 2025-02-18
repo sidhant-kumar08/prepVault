@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SessionProvider } from "next-auth/react";
+import { Analytics } from "@vercel/analytics/react"
 
 
 const geistSans = localFont({
@@ -38,6 +39,7 @@ export default function RootLayout({
       ><SessionProvider>
           <Navbar />
           {children}
+          <Analytics />
           <ToastContainer position="bottom-right"
             autoClose={3000}
             hideProgressBar={false}

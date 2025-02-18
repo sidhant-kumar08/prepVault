@@ -1,8 +1,8 @@
-import { NextResponse, NextRequest } from "next/server";
 import connectDB from "@/app/utils/dbConnect";
-import experienceSchema from "@/models/experience.schema";
-import { getSession } from "next-auth/react";
 import { auth } from "@/auth";
+import experienceSchema from "@/models/experience.schema";
+import exp from "constants";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
@@ -37,7 +37,7 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  const { id } = params;
+  const { id } = await params;
 
   if (!id) {
     return NextResponse.json(
@@ -52,36 +52,34 @@ export async function PUT(
     await connectDB();
 
     const body = await req.json();
-    const { title, experience, company, status } = body;
+    const { comment, user } = body;
 
-    if (!title || !experience || !company || !status) {
+    if (!comment || !user) {
       return NextResponse.json(
         {
           message: "All fields are required",
         },
-        { status: 400 }
-      );
-    }
-
-    const updatedExperience = await experienceSchema.findByIdAndUpdate(
-      id,
-      { title, experience, status, company },
-      { new: true }
-    );
-
-    if (!updatedExperience) {
-      return NextResponse.json(
         {
-          message: "Experience not found",
-        },
-        { status: 404 }
+          status: 400,
+        }
       );
     }
+
+    const experience = await experienceSchema.findById(id);
+
+    if(!experience){
+      return NextResponse.json({message: "Experience not found"},{status: 404});
+    }
+
+
+    experience.comments.push({user: user, text: comment});
+    await experience.save();
 
     return NextResponse.json(
       {
         message: "Updated Successfully",
-        experience: updatedExperience,
+        experience: experience,
+        success : true
       },
       { status: 200 }
     );
